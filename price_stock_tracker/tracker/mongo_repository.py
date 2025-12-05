@@ -9,9 +9,9 @@ from datetime import datetime
 
 from bson import ObjectId
 
-from tracker.models import Product, PriceRecord
-from tracker.repositories import BaseProductRepository, BasePriceRepository
-from tracker.configuration import db
+from price_stock_tracker.tracker.models import Product, PriceRecord
+from price_stock_tracker.tracker.repositories import BaseProductRepository, BasePriceRepository
+from price_stock_tracker.tracker.configuration import db
 
 class MongoProductRepository(BaseProductRepository):
     def __init__(self):
