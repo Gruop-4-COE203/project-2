@@ -16,8 +16,16 @@ class DatabaseConfiguration:
         self.client = MongoClient(self.mongo_url)
         self.db = self.client["price_stock_tracker"]
 
+    def test_connection(self):
+        try:
+            self.client.admin.command("ping")
+            print("MongoDB connection OK")
+        except Exception as e:
+            print(f"MongoDB connection failed: {e}")
+
 #Initialize DB
 db_configuration = DatabaseConfiguration()
+db_configuration.test_connection()
 db = db_configuration.db
 
 #Collections
