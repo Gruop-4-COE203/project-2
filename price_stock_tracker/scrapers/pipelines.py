@@ -14,16 +14,10 @@ class MongoPipeline:
         self.atlas = atlas_DB
 
     def process_item(self, item, spider):
-        if not item:
-            return item
-    # add item as a dictionary
-    self.collection.insert_one(dict(item))
-    print(f"Saved item: {item.get('title')}")
-
-    # save local
-    self.local["products"].insert_one(dict(item))
-    #save atlas if exist
-    if self.atlas is not None:
+     # save localdb
+     self.local["products"].insert_one(dict(item))
+     #save atlasdb if exist
+     if self.atlas is not None:
         self.atlas["products"].insert_one(dict(item))
-    return item
+     return item
 

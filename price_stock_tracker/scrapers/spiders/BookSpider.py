@@ -11,7 +11,6 @@ class BookSpider(scrapy.Spider):
     def parse(self, response):
         title = response.css("div.product_main h1::text").get()
         price = response.css("p.price_color::text").get()
-        availability = response.css("p.availability::text").get()
         title = self.clean_text(title)
         stock_raw = response.css("p.instock.availability::text").getall()
         stock_clean = " ".join(stock_raw).strip()
@@ -20,7 +19,6 @@ class BookSpider(scrapy.Spider):
         yield {
             "title": title,
             "price": price,
-            "availability":availability,
             "stock": stock_status,
             "scrape_time": scrape_time,
             "url": response.url
