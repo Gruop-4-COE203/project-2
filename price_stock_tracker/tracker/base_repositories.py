@@ -4,8 +4,8 @@ from typing import List, Optional
 from .models import Product, PriceRecord
 
 #Defining Base Product Class
-class BaseProductRepository(ABC):
-    """It's abstract repository for products. """
+class BaseStockRepository(ABC):
+    """It's abstract repository for stock data. """
     @abstractmethod
     def create_product(self, product: Product) -> Product:
         """Saving a new product and return it."""

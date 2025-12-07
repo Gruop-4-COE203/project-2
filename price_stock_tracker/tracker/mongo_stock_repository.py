@@ -7,28 +7,28 @@ to communicate with MongoDB databases
 from typing import List, Optional
 from datetime import datetime
 from price_stock_tracker.tracker.models import Product
-from price_stock_tracker.tracker.repositories import BaseProductRepository
+from price_stock_tracker.tracker.base_repositories import BaseStockRepository
 from price_stock_tracker.tracker.configuration import local_DB, atlas_DB
 
-class MongoProductRepository(BaseProductRepository):
+class MongoStockRepository(BaseStockRepository):
 
     def __init__(self):
         """
         Initializes the repository and connects to the 'products' collection in MongoDB.
         """
-        self.collection = local_DB['products'] #always connect to local
+        self.collection = local_DB['stock'] #always connect to local
         self.atlas_collection = None
         if atlas_DB is not None:
-          self.atlas_collection = atlas_DB['products']
+          self.atlas_collection = atlas_DB['stock']
 
-    def create_product(self, product: Product) -> Product:
+    def create_product(self, stock: Product) -> Product:
         """
         In this function add a new product and save it in MongoDB database.
         """
-        self.collection.insert_one(product.__dict__)
+        self.collection.insert_one(stock.__dict__)
         if self.atlas_collection is not None:
-            self.atlas_collection.insert_one(product.__dict__)
-        return product
+            self.atlas_collection.insert_one(stock.__dict__)
+        return stock
 
     def list_products(self) -> List[Product]:
         """

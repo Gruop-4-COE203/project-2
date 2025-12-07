@@ -4,7 +4,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 """ allows the Scrapy works in main.py  """
 from price_stock_tracker.scrapers.spiders.BookSpider import BookSpider
-from price_stock_tracker.tracker.mongo_price_record_repository import MongoPriceRecordRepo
+from price_stock_tracker.tracker.mongo_price_repository import MongoPriceRecordRepo
 
 def select_spider(url: str):
    url_lower = url.lower()
