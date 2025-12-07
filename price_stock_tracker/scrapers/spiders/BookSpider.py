@@ -1,4 +1,5 @@
 import scrapy
+from datetime import datetime
 
 class BookSpider(scrapy.Spider):
     name = "book"
@@ -11,15 +12,18 @@ class BookSpider(scrapy.Spider):
         title = response.css("div.product_main h1::text").get()
         price = response.css("p.price_color::text").get()
         availability = response.css("p.availability::text").get()
-
         title = self.clean_text(title)
-
+        stock_raw = response.css("p.instock.availability::text").getall()
+        stock_clean = " ".join(stock_raw).strip()
+        stock_status = "In stock" if "In stock" in stock_clean else "Not In stock"
+        scrape_time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
         yield {
             "title": title,
             "price": price,
             "availability":availability,
+            "stock": stock_status,
+            "scrape_time": scrape_time,
             "url": response.url
         }
-
     def clean_text(self, text):
         return text.strip() if text else text

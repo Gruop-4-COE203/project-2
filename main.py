@@ -1,8 +1,9 @@
 import argparse
 """  for getting the urls (input) """
 from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 """ allows the Scrapy works in main.py  """
-from price_stock_tracker.scrapers.spiders import BookSpider
+from price_stock_tracker.scrapers.spiders.BookSpider import BookSpider
 
 def select_spider(url: str):
    url_lower = url.lower()
@@ -18,7 +19,7 @@ def run_scraper(url: str):
     print("Selected spider: ", spider_class.__name__)
     print("Starting up Scraper")
 
-    process = CrawlerProcess()
+    process = CrawlerProcess(get_project_settings())
     process.crawl(spider_class, url=url)
     process.start()
 
@@ -30,12 +31,19 @@ if __name__ == "__main__":
     parser.add_argument("--url", required=False, help="Enter the url")
 
     args = parser.parse_args()
-    #If user doesn't write --url directly in terminal, get URL with input()
-    if args.url:
-        url = args.url
-    else:
-        url = input("Enter the url: ")
 
-    run_scraper(url)
-
-
+    while True:
+       try:
+           if args.url:
+               url = args.url
+           else:
+               url = input("Enter the url (or write 'quit' to quit): ")
+           if url.lower() == "quit":
+               print("Exiting program")
+               break
+           run_scraper(url)
+           break
+       except ValueError as e:
+           print(f"Error: {e}")
+           print("Please try again")
+           args.url = None

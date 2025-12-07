@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "stockscraper"
+BOT_NAME = "price_stock_tracker"
 
-SPIDER_MODULES = ["stockscraper.spiders"]
-NEWSPIDER_MODULE = "stockscraper.spiders"
+SPIDER_MODULES = ["price_stock_tracker.scrapers.spiders"]
+NEWSPIDER_MODULE = "price_stock_tracker.scrapers.spiders"
 
 ADDONS = {}
 

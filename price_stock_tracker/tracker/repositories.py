@@ -8,7 +8,7 @@ from .models import Product, PriceRecord
 class BaseProductRepository(ABC):
     """It's abstract repository for products. """
     @abstractmethod
-    def create_product(self, product_id: str, price: float) -> Product:
+    def create_product(self, product: Product) -> Product:
         """Saving a new product and return it."""
         raise NotImplementedError
     @abstractmethod
@@ -20,8 +20,8 @@ class BaseProductRepository(ABC):
         """Returning all products."""
         raise NotImplementedError
     @abstractmethod
-    def update_product(self, product_id: str, price: float) -> Product:
-        """Updating product with new price and given id."""
+    def update_product(self, product_id: str, new_price: float, in_stock: bool) -> Optional[Product]:
+        """Updating product price and stock."""
         raise NotImplementedError
     @abstractmethod
     def delete_product(self, product_id: str) -> Optional[Product]:
