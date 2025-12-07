@@ -14,6 +14,11 @@ class MongoPipeline:
         self.collection = db[PRODUCT_COLLECTION]
 
     def process_item(self, item, spider):
+        if not item:
+            return item
+            
         # add item as a dictionary
         self.collection.insert_one(dict(item))
+        print(f"Saved item: {item.get('title')}")
+       
         return item
