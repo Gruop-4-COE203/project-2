@@ -19,6 +19,10 @@ class Product:
     created_at: datetime
     updated_at: Optional[datetime] = None #Starts as None until first update
 
+    def is_price_changed(self, new_price: float):
+        return self.current_price != new_price
+
+
 @dataclass
 class PriceRecord:
     """
@@ -28,5 +32,8 @@ class PriceRecord:
     price: float
     in_stock: bool
     timestamp: datetime
+
+    def is_discount(self, old_price: float):
+        return self.price < old_price
 
 
