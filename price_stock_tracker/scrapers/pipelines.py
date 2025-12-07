@@ -5,14 +5,15 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
-from pymongo import MongoClient
+
+from price_stock_tracker.tracker.configuration import db, PRODUCT_COLLECTION
 
 class MongoPipeline:
     def __init__(self):
-        self.client = MongoClient("mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/")
-        self.db = self.client["price_stock_tracker"]
-        self.collection = self.db["products"]
+        # connect to MongoDB collection
+        self.collection = db[PRODUCT_COLLECTION]
+
     def process_item(self, item, spider):
+        # add item as a dictionary
         self.collection.insert_one(dict(item))
         return item

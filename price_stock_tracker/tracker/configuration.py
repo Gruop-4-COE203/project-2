@@ -1,12 +1,25 @@
 #FOR DATABASE WE USE ATLAS MONGODB
+import os # for safety
+from pymongo import MongoClient # adding mongo url
 
-#adding mongo url
-from pymongo import MongoClient
-"""
- We install pymongo library in terminal(pip3 install pymongo). 
- What is pymongo? -> It's library
- After that we get connection string for Python from Atlas
-"""
-Mongo_Url = "mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/?appName=Cluster0"
-client = MongoClient(Mongo_Url)
-db = client['price_stock_tracker']
+class DatabaseConfiguration:
+    def __init__(self):
+        """
+        for safety cause in mongo url has username and password
+        so, we use environment variables instead of hardcoding
+        """
+        self.mongo_url = os.getenv("MONGO_URL")
+
+        if not self.mongo_url:
+           raise EnvironmentError("MONGO_URL environment variable is not set!")
+
+        self.client = MongoClient(self.mongo_url)
+        self.db = self.client["price_stock_tracker"]
+
+#Initialize DB
+db_configuration = DatabaseConfiguration()
+db = db_configuration.db
+
+#Collections
+PRODUCT_COLLECTION = "products"
+PRICE_HISTORY_COLLECTION = "price_history"

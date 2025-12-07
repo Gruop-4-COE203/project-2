@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import List, Optional
 from .models import Product, PriceRecord
 
-#Defineding Base Product Class
+#Defining Base Product Class
 class BaseProductRepository(ABC):
     """It's abstract repository for products. """
     @abstractmethod
@@ -12,7 +12,7 @@ class BaseProductRepository(ABC):
         """Saving a new product and return it."""
         raise NotImplementedError
     @abstractmethod
-    def get_product_id(self, product_id: str) -> Optional[Product]:
+    def get_product(self, product_id: str) -> Optional[Product]:
         """Returning product id, and it's optional so can be None if not found."""
         raise NotImplementedError
     @abstractmethod

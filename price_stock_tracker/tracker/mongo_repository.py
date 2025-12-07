@@ -15,10 +15,10 @@ from price_stock_tracker.tracker.configuration import db
 
 class MongoProductRepository(BaseProductRepository):
     def __init__(self):
-     """
-     Initializes the repository and connects to the 'products' collection in MongoDB.
-     """
-     self.collection = db['products']
+        """
+        Initializes the repository and connects to the 'products' collection in MongoDB.
+        """
+        self.collection = db['products']
     def create_product(self, product: Product) -> Product:
         """
         In this function add a new product and save it in MongoDB database.
