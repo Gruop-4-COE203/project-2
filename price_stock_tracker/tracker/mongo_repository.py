@@ -6,11 +6,12 @@ to communicate with MongoDB databases
 
 from typing import List, Optional
 from datetime import datetime
-from price_stock_tracker.tracker.models import Product, PriceRecord
+from price_stock_tracker.tracker.models import Product
 from price_stock_tracker.tracker.repositories import BaseProductRepository
 from price_stock_tracker.tracker.configuration import local_DB, atlas_DB
 
 class MongoProductRepository(BaseProductRepository):
+
     def __init__(self):
         """
         Initializes the repository and connects to the 'products' collection in MongoDB.
@@ -28,15 +29,6 @@ class MongoProductRepository(BaseProductRepository):
         if self.atlas_collection is not None:
             self.atlas_collection.insert_one(product.__dict__)
         return product
-
-    def get_product_id(self, product_id: str) -> Optional[Product]:
-        """
-        In this function return a product by its id. If object not found return None.
-        """
-        data = self.collection.find_one({"id": product_id})
-        if data:
-            return Product(**data)
-        return None
 
     def list_products(self) -> List[Product]:
         """

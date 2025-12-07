@@ -1,15 +1,9 @@
 #FOR DATABASE WE USE ATLAS MONGODB
-import os # for safety
 from pymongo import MongoClient # adding mongo url
 
 class DatabaseConfiguration:
     def __init__(self):
-        """
-        for safety cause in mongo url has username and password
-        so, we use environment variables instead of hardcoding
-        And also, for visibility we use Local and Atlas MongoDB
-        """
-        self.atlas_url = os.getenv("MONGO_URL")
+        self.atlas_url = "mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
         self.local_url = "mongodb://localhost:27017/"
 
         #Connect to Local MongoDB
@@ -18,7 +12,6 @@ class DatabaseConfiguration:
 
         self.atlas_client = None
         self.atlas_db = None
-
 
         #Try connecting to Atlas
         if self.atlas_url:
@@ -38,8 +31,9 @@ class DatabaseConfiguration:
 
     def test_connection(self):
         try:
-            self.client.admin.command("ping")
-            print("MongoDB connection OK")
+            if self.local_client:
+                self.local_client.admin.command("ping")
+                print("Local MongoDB connection OK")
         except Exception as e:
             print(f"MongoDB connection failed: {e}")
 
