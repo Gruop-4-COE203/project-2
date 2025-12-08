@@ -34,7 +34,6 @@ def test_book_spider_extracts_fields():
     # Run spider.parse()
     result = list(spider.parse(response))
     assert len(result) == 1, "Spider did not return any items."
-
     item = result[0]
 
     # FIELD TESTS
@@ -42,7 +41,6 @@ def test_book_spider_extracts_fields():
     assert item["price"] == "£50.00"
     assert item["stock"] == "In stock"
     assert item["stock_count"] == 22
-
     # auto-generated fields
     assert "scrape_time" in item
     assert "url" in item

@@ -27,7 +27,7 @@ def run_scraper(url: str):
     print("\n" + "─" * 50)
 
     from price_stock_tracker.tracker.configuration import local_DB
-    product_cursor = local_DB["products"].find({"url": url}).sort("_id", -1).limit(1)
+    product_cursor = local_DB["stock"].find({"url": url}).sort("_id", -1).limit(1)
     product = next(product_cursor, None)
 
     if product:
@@ -42,7 +42,6 @@ def run_scraper(url: str):
     print(f"📘 BOOK: {title}")
     print(f"🔗 URL: {url}\n")
     print(f"📦 STOCK: {stock} ({stock_count} available)")
-
 
     if not MongoPriceRecordRepo().get_history(url):
         print("No price history yet.")

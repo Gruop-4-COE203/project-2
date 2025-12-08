@@ -38,3 +38,5 @@ class MongoPriceRecordRepo:
             record.pop("_id", None) 
             history.append(PriceRecord(**record))   #convert dict to PriceRecord
         return history
+
+    

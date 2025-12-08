@@ -3,7 +3,7 @@
 In this python file setting up "Repository" layer,
 to communicate with MongoDB databases
 """
-
+from abc import ABC
 from typing import List, Optional
 from datetime import datetime
 from price_stock_tracker.tracker.models import Product

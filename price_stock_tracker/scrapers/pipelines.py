@@ -15,18 +15,18 @@ class MongoPipeline:
 
     def process_item(self, item, spider):
      # save data in localdb
-     self.local["stock"].insert_one(dict(item))
-     self.local["price_records"].insert_one({
-         "product_id": item.get("url"),
-         "price": item.get("price"),
-         "timestamp": datetime.now()
-     })
-     #save atlasdb if exist
-     if self.atlas is not None:
-        self.atlas["stock"].insert_one(dict(item))
-        self.atlas["price_records"].insert_one({
+       self.local["stock"].insert_one(dict(item))
+       self.local["price_records"].insert_one({
+          "product_id": item.get("url"),
+          "price": item.get("price"),
+          "timestamp": datetime.now()
+       })
+     #save data in atlasdb if exist
+       if self.atlas is not None:
+         self.atlas["stock"].insert_one(dict(item))
+         self.atlas["price_records"].insert_one({
              "product_id": item.get("url"),
              "price": item.get("price"),
              "timestamp": datetime.now()
          })
-     return item
+       return item

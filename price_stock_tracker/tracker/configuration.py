@@ -7,7 +7,7 @@ from pymongo import MongoClient # adding mongo url
 class DatabaseConfiguration:
     def __init__(self):
         #MongoDB connection URLs
-        self.atlas_url = "mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        self.atlas_url = "mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/?appName=Cluster0"
         self.local_url = "mongodb://localhost:27017/"
 
         #Connect to Local MongoDB
