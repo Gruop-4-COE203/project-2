@@ -9,7 +9,7 @@ class BookSpider(scrapy.Spider):
         super().__init__(*args, **kwargs)
         self.start_urls = [url]
 
-    def parse(self, response, **kwargs):
+    def parse(self, response):
         title = response.css("div.product_main h1::text").get()
         price = response.css("p.price_color::text").get()
         title = self.clean_text(title)
