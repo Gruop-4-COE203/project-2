@@ -4,11 +4,13 @@ from price_stock_tracker.tracker.mongo_price_repository import MongoPriceRecordR
 
 def test_price_record_insert_and_history():
     repo = MongoPriceRecordRepo()
+    repo.atlas_collection = None  # disable Atlas for tests
+
 
     record = PriceRecord(
         product_id="https://example.com/book",
-        price="£20.00",
-        date="01/01/2025, 12:00:00"
+        price = 123.00,
+        date = "01/01/2025, 12:00:00"
     )
 
     repo.add_record(record)
@@ -19,5 +21,5 @@ def test_price_record_insert_and_history():
     last = history[-1]
 
     assert last.product_id == "https://example.com/book"
-    assert str(last.price) == "£20.00"
+    assert last.price == 123.00
     assert "2025" in last.date

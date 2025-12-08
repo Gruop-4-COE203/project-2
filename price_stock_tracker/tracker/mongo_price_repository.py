@@ -18,7 +18,7 @@ class MongoPriceRecordRepo:
         data = record.__dict__
         self.local_collection.insert_one(data)
 
-        if self.atlas_collection:
+        if self.atlas_collection is not None:
             self.atlas_collection.insert_one(data)
 
         return record
