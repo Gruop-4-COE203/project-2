@@ -1,3 +1,6 @@
+#This file contains the "abstract repository" classes for products and prices.
+#Repository classes that will work with MongoDB or other data are derived from these base classes. 
+
 #importing necessary modules
 from abc import ABC, abstractmethod
 from typing import List, Optional

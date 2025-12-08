@@ -1,14 +1,19 @@
+#This file contains the MongoDB connection settings.
+#It provides both local MongoDB and Atlas MongoDB connections.
+
 #FOR DATABASE WE USE ATLAS MONGODB
 from pymongo import MongoClient # adding mongo url
 
 class DatabaseConfiguration:
     def __init__(self):
+        #MongoDB connection URLs
         self.atlas_url = "mongodb+srv://tracker_user:tracker_user123@cluster0.jax27jp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
         self.local_url = "mongodb://localhost:27017/"
 
         #Connect to Local MongoDB
         self.local_client = MongoClient(self.local_url)
         self.local_db = self.local_client["price_stock_tracker"]
+        #The Atlas connection was None initially.
 
         self.atlas_client = None
         self.atlas_db = None
@@ -30,6 +35,7 @@ class DatabaseConfiguration:
             print("Atlas URL not found → Using only Local MongoDB.")
 
     def test_connection(self):
+        #We write these lines to test the local MongoDB connection.
         try:
             if self.local_client:
                 self.local_client.admin.command("ping")
@@ -42,7 +48,9 @@ db_configuration = DatabaseConfiguration()
 db_configuration.test_connection()
 
 #Collections
-PRODUCT_COLLECTION = "products"
+#Product information
+PRODUCT_COLLECTION = "products"    
+#Price history
 PRICE_HISTORY_COLLECTION = "price_history"
 #Export DB
 local_DB = db_configuration.local_db
