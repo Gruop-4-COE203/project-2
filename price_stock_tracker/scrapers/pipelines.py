@@ -19,7 +19,7 @@ class MongoPipeline:
        self.local["price_records"].insert_one({
           "product_id": item.get("url"),
           "price": item.get("price"),
-          "timestamp": datetime.now()
+          "timestamp": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
        })
      #save data in atlasdb if exist
        if self.atlas is not None:
@@ -27,6 +27,6 @@ class MongoPipeline:
          self.atlas["price_records"].insert_one({
              "product_id": item.get("url"),
              "price": item.get("price"),
-             "timestamp": datetime.now()
+             "timestamp": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
          })
        return item

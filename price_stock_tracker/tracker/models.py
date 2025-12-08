@@ -27,5 +27,4 @@ class PriceRecord:
     """
     product_id: str    #we determine which product it belongs to with the ID
     price: float       #price of product
-    date: Optional[str] = None    #registration date
-    timestamp: Optional[datetime] = None    #registration time
+    timestamp: Optional[datetime] = None   #registration time

@@ -41,3 +41,7 @@ class BasePriceRepository(ABC):
     def get_price(self, product_id: str) -> List[PriceRecord]:
         """Returning all prices for product."""
         raise NotImplementedError
+    @abstractmethod
+    def get_latest_price(self, product_id: str) -> Optional[PriceRecord]:
+        """Return the latest price record for the product."""
+        raise NotImplementedError

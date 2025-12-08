@@ -14,6 +14,7 @@ NEWSPIDER_MODULE = "price_stock_tracker.scrapers.spiders"
 
 ADDONS = {}
 
+LOG_LEVEL = "WARNING"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "stockscraper (+http://www.yourdomain.com)"

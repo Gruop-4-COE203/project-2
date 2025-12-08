@@ -43,29 +43,26 @@ def run_scraper(url: str):
     print(f"🔗 URL: {url}\n")
     print(f"📦 STOCK: {stock} ({stock_count} available)")
 
-    if not MongoPriceRecordRepo().get_history(url):
+    repo = MongoPriceRecordRepo()
+    history = repo.get_history(url)
+
+    if not history:
         print("No price history yet.")
         print("─" * 60)
         return
+    last = history[-1]
 
-    if MongoPriceRecordRepo().get_history(url):
-        last = MongoPriceRecordRepo().get_history(url)[-1]
-        print(f"💰 LAST PRICE: {last.price}")
-        print(f"📅 DATE: {last.timestamp}")
+    print(f"💰 LAST PRICE: {last.price}")
+    print(f"📅 DATE: {last.timestamp}")
 
-        print("📊 PRICE HISTORY:")
-        for record in MongoPriceRecordRepo().get_history(url):
+    print("📊 PRICE HISTORY:")
+    for record in history:
             marker = "← latest" if record == last else ""
             print(f"  • {record.price:<8} — {record.timestamp} {marker}")
 
     print("─" * 60)
 
-    if MongoPriceRecordRepo().get_history(url):
-        last=MongoPriceRecordRepo().get_history(url)[-1]
-        print(f"Last Price: {last.price}")
-    else:
-        print(f"No price record for product.")
-
+    print(f"Last Price: {last.price}")
     print("Scraping Complete")
     print("Data save in MongoDB")
 
@@ -81,11 +78,14 @@ if __name__ == "__main__":
                url = args.url
            else:
                url = input("Enter the url (or write 'quit' to quit): ")
+
            if url.lower() == "quit":
                print("Exiting program")
                break
+
            run_scraper(url)
            break
+
        except ValueError as e:
            print(f"Error: {e}")
            print("Please try again")
