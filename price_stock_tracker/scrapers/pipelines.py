@@ -5,9 +5,8 @@
 
 
 # useful for handling different item types with a single interface
-
-from price_stock_tracker.tracker.configuration import local_DB, atlas_DB
 from datetime import datetime
+from price_stock_tracker.tracker.configuration import local_DB, atlas_DB
 class MongoPipeline:
     def __init__(self):
         self.local = local_DB
@@ -15,18 +14,18 @@ class MongoPipeline:
 
     def process_item(self, item, spider):
      # save data in localdb
-       self.local["stock"].insert_one(dict(item))
-       self.local["price_records"].insert_one({
+        self.local["stock"].insert_one(dict(item))
+        self.local["price_records"].insert_one({
           "product_id": item.get("url"),
           "price": item.get("price"),
           "timestamp": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
        })
      #save data in atlasdb if exist
-       if self.atlas is not None:
-         self.atlas["stock"].insert_one(dict(item))
-         self.atlas["price_records"].insert_one({
+        if self.atlas is not None:
+            self.atlas["stock"].insert_one(dict(item))
+            self.atlas["price_records"].insert_one({
              "product_id": item.get("url"),
              "price": item.get("price"),
              "timestamp": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
          })
-       return item
+        return item

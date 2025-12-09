@@ -1,6 +1,7 @@
-import scrapy
 import re
 from datetime import datetime
+import scrapy
+
 
 class BookSpider(scrapy.Spider):
     name = "book"

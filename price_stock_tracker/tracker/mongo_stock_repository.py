@@ -19,7 +19,7 @@ class MongoStockRepository(BaseStockRepository):
         self.collection = local_DB['stock'] #always connect to local
         self.atlas_collection = None
         if atlas_DB is not None:
-          self.atlas_collection = atlas_DB['stock']
+            self.atlas_collection = atlas_DB['stock']
 
     def create_product(self, stock: Product) -> Product:
         """

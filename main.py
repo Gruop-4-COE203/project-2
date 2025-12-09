@@ -1,21 +1,20 @@
 import argparse
-"""  for getting the urls (input) """
+# for getting the urls (input)
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-""" allows the Scrapy works in main.py  """
+# allows the Scrapy works in main.py
 from price_stock_tracker.scrapers.spiders.BookSpider import BookSpider
 from price_stock_tracker.tracker.mongo_price_repository import MongoPriceRecordRepo
 
 def select_spider(url: str):
-   url_lower = url.lower()
-   if "books.toscrape" in url_lower:
-       return BookSpider
-   else:
-       raise ValueError("Invalid url")
+    url_lower = url.lower()
+    if "books.toscrape" in url_lower:
+        return BookSpider
+    else:
+        raise ValueError("Invalid url")
 
 def run_scraper(url: str):
     spider_class = select_spider(url)
-
     print (f"URL: {url} ")
     print("Selected spider: ", spider_class.__name__)
     print("Starting up Scraper")
@@ -51,17 +50,15 @@ def run_scraper(url: str):
         print("─" * 60)
         return
     last = history[-1]
-
     print(f"💰 LAST PRICE: {last.price}")
     print(f"📅 DATE: {last.timestamp}")
-
     print("📊 PRICE HISTORY:")
+
     for record in history:
-            marker = "← latest" if record == last else ""
-            print(f"  • {record.price:<8} — {record.timestamp} {marker}")
+        marker = "← latest" if record == last else ""
+        print(f"  • {record.price:<8} — {record.timestamp} {marker}")
 
     print("─" * 60)
-
     print(f"Last Price: {last.price}")
     print("Scraping Complete")
     print("Data save in MongoDB")
@@ -69,24 +66,21 @@ def run_scraper(url: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Price Stock Tracker')
     parser.add_argument("--url", required=False, help="Enter the url")
-
     args = parser.parse_args()
 
     while True:
-       try:
-           if args.url:
-               url = args.url
-           else:
-               url = input("Enter the url (or write 'quit' to quit): ")
+        try:
+            if args.url:
+                url = args.url
+            else:
+                url = input("Enter the url (or write 'quit' to quit): ")
+            if url.lower() == "quit":
+                print("Exiting program")
+                break
+            run_scraper(url)
+            break
 
-           if url.lower() == "quit":
-               print("Exiting program")
-               break
-
-           run_scraper(url)
-           break
-
-       except ValueError as e:
-           print(f"Error: {e}")
-           print("Please try again")
-           args.url = None
+        except ValueError as e:
+            print(f"Error: {e}")
+            print("Please try again")
+            args.url = None

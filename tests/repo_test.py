@@ -23,4 +23,3 @@ def test_price_record_insert_and_history():
     assert last.product_id == "https://example.com/book"
     assert last.price == 123.00
     assert "2025" in last.date
-

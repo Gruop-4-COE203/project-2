@@ -1,6 +1,7 @@
 import scrapy
-from price_stock_tracker.scrapers.spiders.BookSpider import BookSpider
 from scrapy.http import HtmlResponse
+from price_stock_tracker.scrapers.spiders.BookSpider import BookSpider
+
 
 
 def fake_response(url: str, html: str):
